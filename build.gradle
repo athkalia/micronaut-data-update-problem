@@ -1,4 +1,4 @@
-buildscript { // todo import some config from the other test project i built for Transferwise
+buildscript {
     repositories {
         mavenCentral()
         jcenter()
