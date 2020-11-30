@@ -1,0 +1,77 @@
+buildscript { // todo import some config from the other test project i built for Transferwise
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+plugins {
+    // Introduce plugin without applying it so that we can configure some aspects of it
+    id "org.jetbrains.kotlin.jvm" apply false
+    id "com.github.johnrengelman.shadow" apply false
+}
+
+apply from: gradleConfigFile("dependency-versions")
+apply from: gradleConfigFile("dependencies")
+
+subprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "1.8"
+
+            // Will retain parameter names for Java reflection. See
+            // https://docs.micronaut.io/latest/guide/index.html#retainparameternames
+            javaParameters = true
+        }
+    }
+
+    plugins.withId("org.jetbrains.kotlin.jvm") {
+        dependencies {
+            implementation projectDependencies.kotlinStdLib
+            implementation projectDependencies.kotlinReflection
+        }
+    }
+
+    plugins.withId("com.github.johnrengelman.shadow") {
+        project.apply from: gradleConfigFile("shadow-jar")
+    }
+
+    plugins.withId("org.jetbrains.kotlin.plugin.allopen") {
+        // Config for the Kotlin All-Open plugin
+        // https://kotlinlang.org/docs/reference/compiler-plugins.html#all-open-compiler-plugin
+        allOpen {
+            // Automatically open up for extension all classes annotated directly or indirectly (via other annotations like
+            // '@io.micronaut.validation.Validated') with this annotation.
+            // See https://docs.micronaut.io/1.2.6/guide/index.html#beanValidation
+            annotation("io.micronaut.aop.Around")
+        }
+    }
+
+    plugins.withId("io.micronaut.library") {
+        micronaut {
+            version "$versions.micronaut"
+            testRuntime "junit5" // Automatically import all JUnit 5 dependencies
+            processing {
+                // Sets whether incremental annotation processing is enabled. There are some problems with
+                // incremental annotation processing. We should enable when the project is bigger and this matters more.
+                incremental false
+                annotations "com.caribou.*"
+            }
+        }
+    }
+}
+
+// Convenience method for including our custom Gradle configurations
+def gradleConfigFile(configName) {
+    "$rootDir/config/gradle/${configName}.gradle"
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

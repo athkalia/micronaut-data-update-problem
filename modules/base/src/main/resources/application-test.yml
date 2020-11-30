@@ -1,0 +1,27 @@
+datasources:
+  # Setup tests annotated with '@MicronautTest' to run inside a docker test container.
+  # See https://www.testcontainers.org/
+  default:
+    # Reuse the container across all tests that require one.
+    # See https://medium.com/vattenfall-tech/optimise-testcontainers-for-better-tests-performance-20a131d6003c
+    url: jdbc:tc:mysql:8:///db?TC_REUSABLE=true
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    schema-generate: NONE
+    dialect: MYSQL
+
+# There's a bug in Micronaut that requires this declaration, otherwise handler tests that do not have the
+# '@MicronautTest' annotation fail with an exception that this property is missing.
+# See https://github.com/micronaut-projects/micronaut-core/issues/4556
+micronaut:
+  test:
+    rollback: false
+
+# Override value for dev environments. Usually to include more logging information
+caribou:
+  debug: true
+
+logger:
+  levels:
+    org.testcontainers: INFO
+    com.github.dockerjava: WARN
+    io.micronaut.data.query: TRACE # Log Micronaut SQL queries

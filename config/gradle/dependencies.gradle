@@ -1,0 +1,174 @@
+// All dependencies should be included in this file and referenced from here.
+ext.projectDependencies = [
+
+    // Contains the input types for events from services that invoke Lambda functions, e.g. the 'SQSEvent' object.
+    // See https://docs.aws.amazon.com/lambda/latest/dg/java-package.html
+    awsLambdaJavaEvents              : "com.amazonaws:aws-lambda-java-events:$versions.awsLambdaJavaEvents",
+
+    // Mocking library for tests.
+    // See https://github.com/mockito/mockito and
+    // https://github.com/nhaarman/mockito-kotlin for more details.
+    mockito                          : "org.mockito:mockito-inline:$versions.mockito",
+    mockitoKotlin                    : "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitoKotlin",
+
+    // The Micronaut BOM that contains version declarations for most of Micronaut dependencies
+    micronautBom                     : "io.micronaut:micronaut-bom:$versions.micronaut",
+
+    // Micronaut function AWS support. For example contains 'MicronautRequestHandler'.
+    // See https://micronaut-projects.github.io/micronaut-aws/latest/guide/index.html#requestHandlers
+    micronautAwsFunctions                     : "io.micronaut.aws:micronaut-function-aws",
+
+    // Main micronaut dependency
+    micronautRuntime                 : "io.micronaut:micronaut-runtime",
+
+    // Contains support for JDBC.
+    // See https://micronaut-projects.github.io/micronaut-data/latest/guide/
+    micronautDataJdbc                : "io.micronaut.data:micronaut-data-jdbc",
+    micronautDataAnnotationProcessor : "io.micronaut.data:micronaut-data-processor",
+
+    // DB connection pool library
+    // See https://micronaut-projects.github.io/micronaut-data/latest/guide/
+    micronautHikariDbPool            : "io.micronaut.sql:micronaut-jdbc-hikari",
+
+    // Micronaut application AWS support. For example contains 'MicronautLambdaHandler'.
+    // See https://micronaut-projects.github.io/micronaut-aws/latest/guide/index.html#requestHandlers
+    micronautAwsApiProxy             : "io.micronaut.aws:micronaut-function-aws-api-proxy",
+
+    // MySQL JDBC drivers
+    mySqlJdbcDrivers                 : "mysql:mysql-connector-java",
+
+    // As an 'implementation' dependency, it enables validation.
+    // See https://docs.micronaut.io/1.2.6/guide/index.html#beanValidation
+    // As a 'kapt' dependency, it enables validation of beans at compilation time (when possible).
+    // See https://docs.micronaut.io/1.2.6/guide/index.html#_validating_annotations_at_compilation_time
+    micronautBeanValidation          : "io.micronaut:micronaut-validation",
+
+    // Part of the Graal VM integration for compiling into native code for speed and memory gains.
+    // Annotation processor helps with generating some needed meta-data such as the
+    // 'reflection-config.json` file, the 'resource-config.json' etc.
+    // See https://guides.micronaut.io/mn-serverless-function-aws-lambda-graalvm/guide/index.html
+    micronautGraalVm                 : "io.micronaut:micronaut-graal",
+
+    // Contains the base classes for creating a runtime that the lambda handlers operate in.
+    // See https://micronaut-projects.github.io/micronaut-aws/latest/guide/#customRuntimes
+    micronautCustomRuntime           : "io.micronaut.aws:micronaut-function-aws-custom-runtime",
+
+    // Logging library. See http://logback.qos.ch/
+    logback                          : "ch.qos.logback:logback-classic",
+
+    // SLF4j bindings
+    // See http://www.slf4j.org/
+    slf4j                            : "org.slf4j:slf4j-log4j12:$versions.slf4j",
+
+    // Contains the 'jackson-module-kotlin' dependency and some util classes for automatically wiring it up
+    // See https://micronaut-projects.github.io/micronaut-kotlin/latest/guide/index.html#runtime
+    // and https://github.com/FasterXML/jackson-module-kotlin
+    micronautKotlinRuntime           : "io.micronaut.kotlin:micronaut-kotlin-runtime",
+
+    // Graal VM dependency. See https://www.graalvm.org/
+    graalVm                          : "org.graalvm.nativeimage:svm",
+
+    // Some convenience methods to make Micronaut more Kotlin friendly
+    // See https://micronaut-projects.github.io/micronaut-kotlin/latest/guide/index.html
+    micronautKotlinExtensionFunctions: "io.micronaut.kotlin:micronaut-kotlin-extension-functions",
+
+    // Enable bean introspection. Allows to read/write object properties without using reflection.
+    // Also used for dependency injection in main src and tests.
+    // Also for AOP.
+    // See https://docs.micronaut.io/1.2.6/guide/index.html#introspection and
+    // https://docs.micronaut.io/1.0.0/guide/index.html#ioc and
+    // https://micronaut-projects.github.io/micronaut-test/latest/guide/
+    micronautInjectJava              : "io.micronaut:micronaut-inject-java",
+
+    // Micronaut flyway integration.
+    // See https://micronaut-projects.github.io/micronaut-flyway/latest/guide/ and
+    // https://github.com/flyway/flyway
+    micronautFlyway                  : "io.micronaut.flyway:micronaut-flyway",
+
+    // AWS SDK V2 BOM
+    // See https://github.com/aws/aws-sdk-java-v2
+    AwsSdkV2Bom                      : "software.amazon.awssdk:bom:$versions.AwsSdkV2Bom",
+
+    // AWS SDK V2 Step functions library
+    // See https://github.com/aws/aws-sdk-java-v2
+    AwsSdkV2StepFunctions            : "software.amazon.awssdk:sfn",
+
+    // Javax persistence annotations, that Micronaut recognizes. This is so that it's easier to move from
+    // Micronaut to another framework and they are overall more mainstream.
+    // See https://www.infoworld.com/article/3379043/what-is-jpa-introduction-to-the-java-persistence-api.html
+    jpa                              : "javax.persistence:javax.persistence-api:$versions.jpa",
+
+    // Kotlin standard library
+    // See https://kotlinlang.org/api/latest/jvm/stdlib/
+    kotlinStdLib                     : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin",
+
+    // Kotlin reflection library
+    // See https://kotlinlang.org/docs/reference/reflection.html
+    kotlinReflection                 : "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin",
+
+    // Fluent assertions for Java. Requires java 8
+    // See http://joel-costigliola.github.io/assertj/index.html for more details.
+    assertJ                          : "org.assertj:assertj-core:$versions.assertJ",
+
+    // Test containers to run SQL tests directly in a local SQL database created on demand.
+    // See https://www.testcontainers.org/
+    dockerTestContainersBOM          : "org.testcontainers:testcontainers-bom:$versions.dockerTestContainersBOM",
+    dockerTestContainers             : "org.testcontainers:mysql",
+
+    // Generates types based on the concept of 'constrained non-determinism' used for testing.
+    // See https://github.com/appmattus/kotlinfixture for details.
+    kotlinFixture                    : "com.appmattus.fixture:fixture:$versions.kotlinFixture",
+
+    kotlinFixtureJavaFaker           : "com.appmattus.fixture:fixture-javafaker:$versions.kotlinFixture",
+
+    jUnitJupiterApi                  : "org.junit.jupiter:junit-jupiter-api:$versions.jUnitJupiterApi"
+]
+ext.groupedDependencies = [
+    usualTestDependencies: [
+        projectDependencies.mockito,
+        projectDependencies.mockitoKotlin,
+        projectDependencies.kotlinFixture,
+        projectDependencies.kotlinFixtureJavaFaker,
+        projectDependencies.assertJ,
+    ]
+]
+
+// ============== Dependencies added by other dependencies/plugins (Just keeping here for reference)============= //
+// Used for dependency injection. See https://docs.micronaut.io/1.0.0/guide/index.html#ioc Brought in by the
+// Micronaut Gradle plugin
+// implementation "io.micronaut:micronaut-inject"
+// Used for Aspect oriented programming. See
+// https://micronaut.io/blog/2019-10-07-micronaut-aop-awesome-flexibility-without-complexity.html
+// Brought in by "io.micronaut:micronaut-runtime"
+// implementation "io.micronaut:micronaut-aop"
+// ============================================================================================================== //
+
+// For using a H2 memory DB
+// runtimeOnly "com.h2database:h2"
+
+// Bean related annotations
+// implementation("javax.annotation:javax.annotation-api")
+
+// Some AWS lambda core class that we haven't needed yet.
+// implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
+
+// Some transformers to convert objects to AWS SDK compatible objects.
+// See https://github.com/aws/aws-lambda-java-libs/tree/master/aws-lambda-java-events-sdk-transformer
+// implementation 'com.amazonaws:aws-lambda-java-events-sdk-transformer:2.0.8'
+
+// Log4j2 support for AWS
+// See https://github.com/aws/aws-lambda-java-libs/tree/master/aws-lambda-java-log4j2
+// implementation 'com.amazonaws:aws-lambda-java-log4j2:1.2.0'
+
+// Something around automatically creating management (health?) endpoints. Not sure if it's useful for Lambda.
+// implementation "io.micronaut:micronaut-management"
+
+// Contains the http client classes like the Controller annotations
+// implementation "io.micronaut:micronaut-http-client"
+
+// Underlying network application server
+// implementation "io.micronaut:micronaut-http-server-netty"
+
+// AWS BOM
+// implementation enforcedPlatform("software.amazon.awssdk:bom:2.15.3")
+//=================================================== //

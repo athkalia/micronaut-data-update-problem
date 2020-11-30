@@ -1,0 +1,18 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm"
+    id "org.jetbrains.kotlin.kapt"
+}
+
+dependencies {
+    kapt platform(projectDependencies.micronautBom)
+    // module needs the annotation processor to run as it has some beans in it.
+    kapt projectDependencies.micronautInjectJava
+
+    implementation platform(projectDependencies.micronautBom)
+    implementation(projectDependencies.micronautCustomRuntime) {
+        exclude group: "com.fasterxml.jackson.module", module: "jackson-module-afterburner"
+    }
+    implementation projectDependencies.slf4j
+
+    runtimeOnly projectDependencies.logback // Only ar runtime as at compile time we use the slf4j bindings
+}

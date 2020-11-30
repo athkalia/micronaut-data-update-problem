@@ -1,0 +1,28 @@
+datasources:
+  # Overrides the default test data source that connects to a docker test container.
+  default:
+    url: jdbc:mysql://localhost:3306/cariboudatabase
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 'admin'
+    # Disabling the automatic schema generation from Micronaut.
+    # https://micronaut-project s.github.io/micronaut-data/1.0.x/api/io/micronaut/data/runtime/config/SchemaGenerate.html
+    schema-generate: NONE
+    dialect: MYSQL
+
+# There's a bug in Micronaut that requires this declaration, otherwise handler tests that do not have the
+# '@MicronautTest' annotation fail with an exception that this property is missing.
+# See https://github.com/micronaut-projects/micronaut-core/issues/4556
+micronaut:
+  test:
+    rollback: false
+
+# Override value for dev environments. Usually to include more logging information
+caribou:
+  debug: true
+
+logger:
+  levels:
+    org.testcontainers: INFO
+    com.github.dockerjava: WARN
+    io.micronaut.data.query: TRACE # Log Micronaut SQL queries

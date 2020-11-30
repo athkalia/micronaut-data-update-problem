@@ -1,0 +1,18 @@
+// Most versions are inside BOMs rather than here.
+ext.versions = [
+    // main
+    kotlin                 : "1.4.10",
+    micronaut              : "2.1.4",
+    awsLambdaJavaEvents    : "3.6.0",
+    slf4j                  : "1.7.30",
+    jpa                    : "2.2",
+    AwsSdkV2Bom            : "2.15.30",
+
+    // testing
+    mockito                : "3.6.0",
+    mockitoKotlin          : "2.2.0",
+    assertJ                : "3.18.1",
+    kotlinFixture          : "1.0.0",
+    dockerTestContainersBOM: "1.15.0",
+    jUnitJupiterApi        : "5.6.2"
+]

@@ -1,0 +1,13 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm"
+}
+
+dependencies {
+    api groupedDependencies.usualTestDependencies
+    implementation platform(projectDependencies.micronautBom)
+    implementation projectDependencies.micronautInjectJava
+    implementation projectDependencies.micronautFlyway
+    implementation projectDependencies.jUnitJupiterApi
+    implementation platform(projectDependencies.dockerTestContainersBOM)
+    runtimeOnly projectDependencies.dockerTestContainers
+}

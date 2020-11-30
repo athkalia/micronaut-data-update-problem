@@ -1,0 +1,45 @@
+micronaut:
+  application:
+    name: CaribouMicronautApp
+logger:
+  levels:
+    com.caribou: DEBUG
+# Log most of Micronaut
+#    io.micronaut: DEBUG
+# Log anything Micronaut
+#    io.micronaut: TRACE
+# Log Micronaut SQL queries
+#    io.micronaut.data.query: TRACE
+
+# TODO I probably need a test for this
+caribou:
+  debug: false
+
+# See https://docs.micronaut.io/1.3.0.M1/guide/index.html#_jackson_configuration
+jackson:
+  # See http://fasterxml.github.io/jackson-databind/javadoc/2.9/com/fasterxml/jackson/databind/MapperFeature.html
+  mapper:
+    acceptCaseInsensitiveProperties: true
+  # See http://fasterxml.github.io/jackson-databind/javadoc/2.9/com/fasterxml/jackson/databind/SerializationFeature.html
+  serialization:
+    # Without this we get an error about no se/deserializers existing for the kotlin 'Unit' class.
+    failOnEmptyBeans: false
+  # Easily parse kotlin data classes from/to Json. See
+  # https://docs.micronaut.io/1.3.0.M1/guide/index.html#_jackson_and_bean_introspection
+  bean-introspection-module: true
+
+datasources:
+  default:
+    url: jdbc:mysql://sd11r8ut4vfqwg4.c00jnf3odq62.eu-west-2.rds.amazonaws.com/CaribouDatabase
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: lala
+    password: 'demo project'
+    # Disabling the automatic schema generation from Micronaut.
+    # https://micronaut-project s.github.io/micronaut-data/1.0.x/api/io/micronaut/data/runtime/config/SchemaGenerate.html
+    schema-generate: NONE
+    dialect: MYSQL
+
+flyway:
+  datasources:
+    default:
+      enabled: true

@@ -1,0 +1,25 @@
+def moveFinalJarTask = tasks.register("moveFinalJar", Copy) {
+    from "$buildDir/libs/${project.name}-all.jar"
+    into buildDir
+    rename { String fileName ->
+        // Rename into a zip so that it has the same format as the native-image artifact. Then SAM doesn't need to
+        // differentiate between the 2, as the 'CodeUri' field doesn't support intrinsic functions like '!If'
+        // See https://github.com/aws/serverless-application-model/issues/271 for example
+        "bundled-assets.zip"
+    }
+}
+
+// Disable the default jar as we don't really need it - we only use the shadow jar that has all the libs in it.
+jar.enabled = false
+
+// Always move the shadow jar in the correct place after generating it.
+shadowJar.finalizedBy moveFinalJarTask
+
+// Make the shadow jar generation happen every time we build the project
+assemble.dependsOn(shadowJar)
+
+// See here for details: https://imperceptiblethoughts.com/shadow/introduction
+// Needed by Micronaut otherwise some beans might not be loaded properly from libraries.
+shadowJar {
+    mergeServiceFiles()
+}

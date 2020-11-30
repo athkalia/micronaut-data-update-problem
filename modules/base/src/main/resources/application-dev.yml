@@ -1,0 +1,10 @@
+flyway:
+  datasources:
+    default:
+      enabled: true
+      locations:
+        - classpath:db/migration
+
+# Override value for dev environments. Usually to include more logging information
+caribou:
+  debug: true

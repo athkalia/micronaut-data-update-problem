@@ -1,0 +1,21 @@
+pluginManagement {
+    apply from: "config/gradle/dependency-versions.gradle"
+
+    repositories {
+        gradlePluginPortal()
+    }
+    plugins {
+        id "org.jetbrains.kotlin.jvm" version "$versions.kotlin"
+        id "com.github.johnrengelman.shadow" version "6.1.0"
+        id "org.jetbrains.kotlin.plugin.allopen" version "$versions.kotlin"
+        id "org.jetbrains.kotlin.kapt" version "$versions.kotlin"
+        id "application"
+        id "io.micronaut.library" version "1.1.0"
+    }
+}
+
+rootProject.name = "caribou"
+
+include ":modules:base"
+include ":modules:database"
+include ":modules:test-helpers"

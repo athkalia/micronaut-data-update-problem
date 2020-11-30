@@ -1,0 +1,26 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm"
+    id "org.jetbrains.kotlin.kapt"
+    id "org.jetbrains.kotlin.plugin.allopen"
+    id "io.micronaut.library"
+}
+
+dependencies {
+    implementation project(":modules:base")
+    testImplementation project(":modules:test-helpers")
+
+    // The 'implementation' BOM is automatically imported by the Micronaut plugin.
+    kapt platform(projectDependencies.micronautBom)
+    kapt projectDependencies.micronautInjectJava
+    kapt projectDependencies.micronautBeanValidation
+    kapt projectDependencies.micronautDataAnnotationProcessor
+    kaptTest projectDependencies.micronautInjectJava
+
+    api projectDependencies.micronautDataJdbc
+    implementation projectDependencies.micronautFlyway
+    implementation projectDependencies.jpa
+    implementation projectDependencies.micronautKotlinExtensionFunctions
+    implementation projectDependencies.micronautHikariDbPool
+
+    runtimeOnly projectDependencies.mySqlJdbcDrivers
+}
